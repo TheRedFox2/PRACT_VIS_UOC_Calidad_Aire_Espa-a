@@ -1,5 +1,5 @@
 const anios = ["2020", "2021", "2022", "2023", "2024", "2025"];
-const promesas = [d3.json("/PRACT_VIS_UOC_Calidad_Aire_Espa-a/output/zonas_calidad_aire_espana_limpio.geojson")];
+const promesas = [d3.json("./output/zonas_calidad_aire_espana_limpio.geojson")];
 let datosPorAnio = {};
 let geojsonGlobal = null;
 
