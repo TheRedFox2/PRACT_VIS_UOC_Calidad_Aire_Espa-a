@@ -1,5 +1,5 @@
-const width = 900;
-const height = 900;
+const width = 800;
+const height = 800;
 
 const svg = d3.select("#mapa")
   .append("svg")
@@ -244,8 +244,8 @@ function actualizarGrafico(datosParaEsteAnio, criterio = "peores") {
     }
 
     const margin = {top: 20, right: 0, bottom: 80, left: 290}; // Espacio para nombres
-    const width = 950 - margin.left - margin.right;
-    const height = 850 - margin.top - margin.bottom;
+    const width = 850 - margin.left - margin.right;
+    const height = 750 - margin.top - margin.bottom;
 
     const g = svgGrafico.append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
 

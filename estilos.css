@@ -98,7 +98,7 @@ h1 {
 
 /* Ajuste del mapa para que se mantenga centrado */
 #mapa {
-    width: 200px;
+    width: 600px;
     flex: 0 0 900px;
     max-width: 100%;
     overflow-x: hidden;

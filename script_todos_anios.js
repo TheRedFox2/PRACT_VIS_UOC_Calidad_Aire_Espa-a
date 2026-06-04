@@ -166,7 +166,7 @@ async function prepararDatosEvolucion() {
     let todosLosDatos = [];
 
     for (const anio of archivos) {
-        const data = await d3.csv(`../output/datos_uso_calidad_aire_${anio}.csv`);
+        const data = await d3.csv(`./output/datos_uso_calidad_aire_${anio}.csv`);
         
         // Calculamos promedios por archivo
         const promedioI = d3.mean(data, d => parseFloat(d.I));
