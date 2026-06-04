@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Mapa D3</title>
+        <link rel="stylesheet" href="estilos.css">
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+    </head>
+<body>
+
+    <div class="control-anio-lateral">
+        <span class="label-texto">Año:</span>
+        <div class="selector-flechas">
+            <button id="btn-menos" class="btn-flecha">◀</button>
+            <span id="label-anio" class="anio-destacado">2020</span>
+            <button id="btn-mas" class="btn-flecha">▶</button>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h1>Calidad del Aire: Monitorización Nacional en los años 2020 - 2025</h1>
+        <p>Análisis evolutivo de contaminantes atmosféricos basado en datos abiertos de la Agencia Europea de Medio Ambiente (EEA)</b>.</p>
+    
+    <section class="contenedor-grafica">
+        <h3>Distribución de los Objetivos de Protección</h3>
+        <p>Este gráfico muestra el peso relativo de los objetivos de protección ambiental establecidos. Identificar si la mayor parte de las zonas de monitorización están enfocadas a la salud humana o a la protección de los ecosistemas ayuda a entender las prioridades de la red de vigilancia.</p>
+        <div id="bar-wrapper">
+        <svg id="donut-chart" width="800" height="600"></svg>
+        </div>
+    </section>
+
+    <section class="contenedor-grafica">
+        <h3>Cumplimiento Normativo por Objetivo</h3>
+        <p>Comparativa entre las zonas que cumplen con los umbrales normativos establecidos y aquellas que superan los límites permitidos. Una visión rápida del desafío actual para alcanzar los estándares de calidad de aire definidos por la legislación vigente.</p>
+        <div id="bar-wrapper">
+        <svg id="bar-chart" width="800" height="600"></svg>
+        </div>
+    </section>
+
+
+
+    <section>   
+
+        <div class="control-panel">
+            <b>Filtrar por contaminante:</b>
+            <div id="botones-contaminante" class="button-group">
+                <button class="btnE active" data-valor="NO2">NO2</button>
+                <button class="btnE" data-valor="O3">O3</button>
+                <button class="btnE" data-valor="PM10">PM10</button>
+                <button class="btnE" data-valor="SO2">SO2</button>
+            </div>
+        </div>
+        
+        <h2>Cumplimiento Normativo UE</h2>
+        <p>Representación geográfica de las zonas monitorizadas en España. Las áreas marcadas en verde representan zonas dentro de los límites legales, mientras que las áreas en rojo indican puntos críticos donde se ha detectado una excedencia en los niveles de contaminantes.</p>
+        <div id="mapa-excedencia"></div>
+
+    </section>
+
+        <section>
+            <h2> Tendencias históricas de la contaminación y el índice obtenido</h2>
+            <p>Análisis temporal del comportamiento de los contaminantes. Mientras que el primer gráfico ofrece una visión global del índice de calidad, el segundo permite comparar la evolución relativa (normalizada) de cada contaminante, facilitando la identificación de tendencias de mejora o empeoramiento en la calidad del aire a lo largo de los años.</p>
+        </section>
+    <section class="contenedor-evolucion-doble">
+
+        <div class="grafico-box">
+            <h2>Tendencia histórica del Índice I</h2>
+            <svg id="line-chart"></svg>
+        </div>
+
+        <div class="grafico-box">
+            <h2>Evolución por Contaminante</h2>
+            <svg id="line-chart-contaminantes"></svg>
+        </div>
+    </section>
+
+
+    <section>
+
+    
+    <div class="control-panel">
+        <h2>Estudio de la normativa según el Índice contaminante</h2>
+        <p>Desglose detallado por zonas específicas. Con la herramienta puede filtrar contaminantes específicos y observar el rendimiento histórico de cada región, identificando rápidamente aquellas áreas que requieren mayor atención administrativa y ambiental.</p>
+        <b>Filtrar por contaminante:</b>
+        <div id="botones-contaminante" class="button-group">
+            <button class="btnC active" data-valor="Promedio">Promedio de contaminantes</button>
+            <button class="btnC" data-valor="NO2">NO2</button>
+            <button class="btnC" data-valor="O3">O3</button>
+            <button class="btnC" data-valor="PM10">PM10</button>
+            <button class="btnC" data-valor="SO2">SO2</button>
+        </div>
+    </div>
+    
+
+
+        <div id="tooltip" class="tooltip"></div>
+    
+        <div class="dashboard">
+            <div id="mapa"></div>
+
+            <div class="grafico-container">
+                    <div class="controles-ranking">
+                        <button class="button active" data-valor="peores">Top 10 Peores</button>
+                        <button class="button" data-valor="mejores">Top 10 Mejores</button>
+                    </div>
+                <div id="grafico-barras"></div>
+            </div>
+        </div>
+
+    </div>
+    </section>
+            
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="script_excedencia.js"></script>
+    <script src="script.js"></script>
+    <script src="graficas_objetivos.js"></script>
+
+    
+    <script src="script_todos_anios.js"></script>
+
+    <footer class="footer">
+            <p>
+                <b>Fuente de datos:</b> 
+                <a href="https://www.eea.europa.eu/en/datahub/datahubitem-view/3b390c9c-f321-490a-b25a-ae93b2ed80c1" target="_blank">
+                    Agencia Europea de Medio Ambiente (EEA) - Datahub
+                </a>
+            </p>
+        </footer>
+    </div> </body>
+</body>
+
+
+
+
+</html>

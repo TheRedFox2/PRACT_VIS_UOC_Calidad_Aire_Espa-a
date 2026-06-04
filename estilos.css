@@ -1,0 +1,441 @@
+/* Centrar todo el cuerpo y dar un fondo elegante */
+html {
+    font-size: 22px;
+}
+
+p {
+    max-width: 1200px; 
+    margin: 0 auto;   
+    padding: 20px;
+    color: #333333; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #555;
+}
+
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #a4d9fc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo del contenedor principal */
+.container {
+    width: 100%;
+    max-width: 2200px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Título con estilo */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    background: #eef2f5;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #3498db;
+}
+
+/* Panel de control */
+.control-panel {
+    margin-bottom: 5px;
+    padding: 10px;
+    background: #ffffff;
+    margin: 20px 0;
+}
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btnE {
+    padding: 8px 16px;
+    border: 1px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btnC {
+    padding: 8px 16px;
+    border: 1px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+
+.btnE:hover {
+    background: #ebf5fb;
+}
+.btnC:hover {
+    background: #ebf5fb;
+}
+.btnE.active {
+    background: #3498db;
+    color: white;
+}
+
+.btnC.active {
+    background: #3498db;
+    color: white;
+}
+
+/* Ajuste del mapa para que se mantenga centrado */
+#mapa {
+    width: 200px;
+    flex: 0 0 900px;
+    max-width: 100%;
+    overflow-x: hidden;
+    height: 800px;
+    cursor: crosshair;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #add8e6;
+    margin-top: 45px;
+    margin-left: 60px;
+    align-items: center;
+}
+
+
+#mapa-excedencia {
+    width: 100%;
+    max-width: 900px;
+    overflow-x: hidden;
+    height: 600px;
+    cursor: crosshair;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px auto; 
+    display: block;   
+    background-color: #add8e6;
+}
+
+.dashboard {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: flex-start;
+    width: 100%;
+
+}
+#grafico-barras {
+    width: 1000px;
+    height: 800px;
+    border: 1px solid #ddd;
+    align-items: flex-start;
+    background-color: #ffffff;
+    margin-bottom: 0;
+}
+/* =====================================================================
+   🎨 ESTILOS PARA EL TOOLTIP FLOTANTE (D3.JS)
+   ===================================================================== */
+.tooltip {
+    position: absolute;
+    background: rgba(26, 36, 43, 0.95); /* Fondo oscuro semitransparente */
+    color: #ffffff;                    /* Texto blanco */
+    padding: 10px 14px;                /* Margen interno */
+    border-radius: 6px;                /* Bordes redondeados */
+    font-size: 13px;                   /* Tamaño de la letra */
+    line-height: 1.5;                  /* Separación entre líneas */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra elegante */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* ⚠️ CRUCIAL: Evita que el cartel parpadee o bloquee el puntero del ratón */
+    pointer-events: none; 
+    
+    /* Empieza oculto hasta que D3.js cambie el estado a 'block' */
+    display: none; 
+    
+    /* Asegura que el cartel flote por encima de cualquier capa del mapa */
+    z-index: 9999; 
+}
+
+/* Estilos decorativos opcionales para las etiquetas internas */
+.tooltip b {
+    color: #fec44f; /* Hace que los títulos (ID, Nombre) resalten en amarillo suave */
+    font-weight: 600;
+}
+
+
+/* Estilos para la leyenda del mapa */
+.leyenda {
+    font-family: sans-serif;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.leyenda-titulo {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/*--------------------------------------------------------------
+/* Footer
+/**/
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid #3f3f3f;
+    color: #2b2b2b;
+    font-size: 0.9em;
+}
+
+.footer a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.map-view { 
+    width: 800px;
+     height: 600px; 
+     border: 1px solid #ccc; 
+}
+
+/* graficas extras */
+
+.contenedor-grafica {
+    max-width: 1200px;
+    margin: 60px auto; 
+    padding: 30px;
+    text-align: center;
+    border-bottom: 2px solid #ffffff; 
+}
+
+/* Espaciado para los textos explicativos */
+.contenedor-grafica p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#donut-chart {
+    width: 800px;
+     height: 600px; 
+    border: 2px #ffffff;
+    background-color: #ffffff;
+    display: block;
+    margin: 20px auto;
+}
+
+#donut-chart path {
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+
+#bar-chart {
+    width: 1100px;
+    height: 800px; 
+    border: 2px #eee;
+    background-color: #ffffff;
+    display: block;
+    margin: 20px auto;
+}
+
+/* Slider años */
+.panel-controles {
+    margin: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    width: fit-content;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.control-anio-lateral {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    text-align: center;
+    z-index: 1000;
+}
+
+.selector-flechas {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-flecha {
+    background: #1f77b4;
+    color: rgb(180, 212, 255);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-flecha:disabled { background: #acacac; }
+.anio-destacado { font-size: 24px; font-weight: 800; color: #1f77b4; }
+
+/* Opcional: Estilo para que el texto resalte */
+#valor-anio {
+    color: #007bff;
+    font-size: 1.2em;
+}
+
+
+/* Gráfica evolutiva de contaminación */
+.contenedor-evolucion {
+    margin: 100px auto;
+    text-align: center;
+    max-width: 1600px;
+}
+
+/* Estilo específico para el SVG de línea */
+#line-chart {
+    width: 800px;
+    height: 600px; 
+    background: #ffffff;
+    border: 1px solid #e5e7eb; /* Borde sutil */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 0 auto;
+}
+
+/* Estilo para los ejes y texto de la gráfica */
+#line-chart .domain {
+    stroke: #9ca3af; /* Color de las líneas de los ejes */
+}
+
+#line-chart .tick text {
+    font-size: 14px;
+    fill: #374151;
+}
+
+/* Para que la línea se vea suave y profesional */
+#line-chart path {
+    fill: none;
+    stroke: #2563eb; /* Azul corporativo */
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+#line-chart-contaminantes {
+    width: 800px;
+    height: 600px;   
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 0 auto;
+}
+
+/* Para que las líneas del gráfico no se vean cortadas */
+#line-chart-contaminantes path {
+    fill: none;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+#line-chart-contaminantes .domain {
+    stroke: #9ca3af; /* Color de las líneas de los ejes */
+}
+
+
+/* Hover linea  */
+/* 1. Cuando el ratón entra en el contenedor de las líneas */
+.contenedor-grafico:hover .linea-contaminante {
+    opacity: 0.2; /* Apaga todas las líneas */
+    transition: opacity 0.3s ease;
+}
+
+/* 2. Cuando el ratón se posa sobre una línea específica */
+.contenedor-grafico .linea-contaminante:hover {
+    opacity: 1 !important; /* Resalta solo la línea señalada */
+    stroke-width: 5px;     /* Opcional: hazla un poco más gruesa */
+}
+
+.contenedor-evolucion-doble {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 220px;
+    margin: 0px auto;
+    padding: 0 0px;
+    max-width: 1800px;
+}
+
+.grafico-box {
+    text-align: center;
+    flex: 1; 
+    max-width: 1800px;
+    min-width: 0;
+}
+
+/* Asegura que los SVGs sean responsivos */
+svg {
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.grafico-container {
+    display: flex;
+    flex-direction: column; /* Apila botones y gráfico verticalmente */
+    width: 100%;
+    flex: 0 1 auto; 
+    max-width: 50%;
+    margin-right: 115px;
+}
+
+.controles-ranking {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    justify-content: flex-end; /* Alinea los botones a la derecha del gráfico */
+}
+
+button {
+    padding: 8px 16px;
+    border: 1px solid #c6fff3;
+    background: rgb(197, 255, 245);
+    color: #000000;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+button:hover { background-color: #c2e9ff; }
