@@ -1,5 +1,5 @@
 const anios = ["2020", "2021", "2022", "2023", "2024", "2025"];
-const promesas = [d3.json("https://github.com/TheRedFox2/PRACT_VIS_UOC_Calidad_Aire_Espa-a/tree/main/output/zonas_calidad_aire_espana_limpio.geojson")];
+const promesas = [d3.json("./output/zonas_calidad_aire_espana_limpio.geojson")];
 let datosPorAnio = {};
 let geojsonGlobal = null;
 
@@ -23,7 +23,7 @@ btnMas.addEventListener("click", () => {
 
 // Añadimos cada CSV a la lista de promesas
 anios.forEach(anio => {
-    promesas.push(d3.csv(`https://github.com/TheRedFox2/PRACT_VIS_UOC_Calidad_Aire_Espa-a/tree/main/output/datos_uso_calidad_aire_${anio}.csv`));
+    promesas.push(d3.csv(`./output/datos_uso_calidad_aire_${anio}.csv`));
 });
 
 
