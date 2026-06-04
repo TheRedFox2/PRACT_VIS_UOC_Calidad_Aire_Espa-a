@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Mapa D3</title>
+        <link rel="stylesheet" href="estilos.css">
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+    </head>
+<body>
+
+    <div class="controles">
+        <label for="slider-anio">Año: <span id="label-anio">2021</span></label>
+        <input type="range" id="slider-anio" min="2021" max="2025" value="2020" step="1">
+    </div>  
+    <div class="container">
+        <h1>Calidad del Aire: Monitorización Nacional</h1>
+        <p>Análisis de contaminantes basado en datos de la <b>Agencia Europea de Medio Ambiente (EEA)</b>.</p>
+    
+    <section class="contenedor-grafica">
+        <h3>Distribución de Objetivos de Protección</h3>
+        <p>Aquí explicarías qué significa la proporción de objetivos...</p>
+        <div id="bar-wrapper">
+        <svg id="donut-chart" width="800" height="600"></svg>
+        </div>
+    </section>
+
+    <section class="contenedor-grafica">
+        <h3>Cumplimiento Normativo por Objetivo</h3>
+        <p>Y aquí hablarías sobre cómo se comparan los cumplimientos...</p>
+        <div id="bar-wrapper">
+        <svg id="bar-chart" width="800" height="600"></svg>
+        </div>
+    </section>
+
+
+    <section>   
+
+        <div class="control-panel">
+            <b>Filtrar por contaminante:</b>
+            <div id="botones-contaminante" class="button-group">
+                <button class="btnE active" data-valor="NO2">NO2</button>
+                <button class="btnE" data-valor="O3">O3</button>
+                <button class="btnE" data-valor="PM10">PM10</button>
+                <button class="btnE" data-valor="SO2">SO2</button>
+            </div>
+        </div>
+        
+        <h2>Cumplimiento Normativo UE</h2>
+        <div id="mapa-excedencia"></div>
+
+    </section>
+
+    <section>
+
+    
+    <div class="control-panel">
+        <h2>Estudio de la normativa según el Índice contaminante</h2>
+        <b>Filtrar por contaminante:</b>
+        <div id="botones-contaminante" class="button-group">
+            <button class="btnC active" data-valor="Promedio">Promedio de contaminantes</button>
+            <button class="btnC" data-valor="NO2">NO2</button>
+            <button class="btnC" data-valor="O3">O3</button>
+            <button class="btnC" data-valor="PM10">PM10</button>
+            <button class="btnC" data-valor="SO2">SO2</button>
+        </div>
+    </div>
+    
+
+
+        <div id="tooltip" class="tooltip"></div>
+    
+        <div class="dashboard">
+            <div id="mapa"></div>
+            <div id="grafico-barras"></div>
+        </div>
+
+    </div>
+    </section>
+            
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="script_excedencia.js"></script>
+    <script src="script.js"></script>
+    <script src="graficas_objetivos.js"></script>
+    <script src="script_todos_anios.js"></script>
+
+    <footer class="footer">
+            <p>
+                <b>Fuente de datos:</b> 
+                <a href="https://www.eea.europa.eu/en/datahub/datahubitem-view/3b390c9c-f321-490a-b25a-ae93b2ed80c1" target="_blank">
+                    Agencia Europea de Medio Ambiente (EEA) - Datahub
+                </a>
+            </p>
+        </footer>
+    </div> </body>
+</body>
+
+
+
+
+</html>

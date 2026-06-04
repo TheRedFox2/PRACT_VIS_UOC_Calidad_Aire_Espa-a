@@ -1,0 +1,260 @@
+/* Centrar todo el cuerpo y dar un fondo elegante */
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #a4d9fc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo del contenedor principal */
+.container {
+    width: 100%;
+    max-width: 2200px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Título con estilo */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    background: #eef2f5;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #3498db;
+}
+
+/* Panel de control */
+.control-panel {
+    margin-bottom: 5px;
+    padding: 10px;
+    background: #ffffff;
+    margin: 20px 0;
+}
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btnE {
+    padding: 8px 16px;
+    border: 1px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btnC {
+    padding: 8px 16px;
+    border: 1px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+
+.btnE:hover {
+    background: #ebf5fb;
+}
+.btnC:hover {
+    background: #ebf5fb;
+}
+.btnE.active {
+    background: #3498db;
+    color: white;
+}
+
+.btnC.active {
+    background: #3498db;
+    color: white;
+}
+
+/* Ajuste del mapa para que se mantenga centrado */
+#mapa {
+    width: 900px;
+    height: 800px;
+    cursor: crosshair;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#mapa-excedencia {
+    width: 900px;
+    height: 600px;
+    cursor: crosshair;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px auto; 
+    display: block;   
+}
+
+.dashboard {
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+#grafico-barras {
+    width: 1000px;
+    height: 800px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+}
+/* =====================================================================
+   🎨 ESTILOS PARA EL TOOLTIP FLOTANTE (D3.JS)
+   ===================================================================== */
+.tooltip {
+    position: absolute;
+    background: rgba(26, 36, 43, 0.95); /* Fondo oscuro semitransparente */
+    color: #ffffff;                    /* Texto blanco */
+    padding: 10px 14px;                /* Margen interno */
+    border-radius: 6px;                /* Bordes redondeados */
+    font-size: 13px;                   /* Tamaño de la letra */
+    line-height: 1.5;                  /* Separación entre líneas */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra elegante */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    /* ⚠️ CRUCIAL: Evita que el cartel parpadee o bloquee el puntero del ratón */
+    pointer-events: none; 
+    
+    /* Empieza oculto hasta que D3.js cambie el estado a 'block' */
+    display: none; 
+    
+    /* Asegura que el cartel flote por encima de cualquier capa del mapa */
+    z-index: 9999; 
+}
+
+/* Estilos decorativos opcionales para las etiquetas internas */
+.tooltip b {
+    color: #fec44f; /* Hace que los títulos (ID, Nombre) resalten en amarillo suave */
+    font-weight: 600;
+}
+
+
+/* Estilos para la leyenda del mapa */
+.leyenda {
+    font-family: sans-serif;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.leyenda-titulo {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/*--------------------------------------------------------------
+/* Footer
+/**/
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid #3f3f3f;
+    color: #2b2b2b;
+    font-size: 0.9em;
+}
+
+.footer a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.map-view { 
+    width: 800px;
+     height: 600px; 
+     border: 1px solid #ccc; 
+}
+
+/* graficas extras */
+
+.contenedor-grafica {
+    max-width: 1200px;
+    margin: 60px auto; 
+    padding: 30px;
+    text-align: center;
+    border-bottom: 2px solid #eee; 
+}
+
+/* Espaciado para los textos explicativos */
+.contenedor-grafica p {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#donut-chart {
+    width: 800px;
+     height: 600px; 
+    border: 2px #eee;
+    background-color: #ffffff;
+    display: block;
+    margin: 20px auto;
+}
+
+#donut-chart path {
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+
+#bar-chart {
+    width: 800px;
+    height: 600px; 
+    border: 2px #eee;
+    background-color: #ffffff;
+    display: block;
+    margin: 20px auto;
+}
+
+/* Slider años */
+.panel-controles {
+    margin: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    width: fit-content;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#slider-anio {
+    width: 300px;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+}
+input[type=range] {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Opcional: Estilo para que el texto resalte */
+#valor-anio {
+    color: #007bff;
+    font-size: 1.2em;
+}
