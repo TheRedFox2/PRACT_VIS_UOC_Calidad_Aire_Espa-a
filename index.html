@@ -2,12 +2,17 @@
 
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
         <title>Mapa D3</title>
         <link rel="stylesheet" href="estilos.css">
         <script src="https://d3js.org/d3.v7.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
     </head>
 <body>
+
 
     <div class="control-anio-lateral">
         <span class="label-texto">Año:</span>
@@ -22,13 +27,29 @@
     <div class="container">
         <h1>Calidad del Aire: Monitorización Nacional en los años 2020 - 2025</h1>
         <p>Análisis evolutivo de contaminantes atmosféricos basado en datos abiertos de la Agencia Europea de Medio Ambiente (EEA)</b>.</p>
-    
+        
+
+    <section id="intro">
+        <h2>Introducción: El Estado del Aire en España</h2>
+        <p>La calidad del aire no es solo un indicador ambiental, sino un pilar fundamental de la salud pública y la sostenibilidad de nuestros ecosistemas. Este estudio presenta un análisis exhaustivo de la situación en España, utilizando datos de la Agencia Europea de Medio Ambiente (EEA). <br><br> A través de un desglose anual, examinamos cómo se comportan los principales contaminantes (dióxido de nitrógeno NO2, ozono O3, artículas de aerosol (partículas inferiores a 10 micrómetros) PM10, dióxido de azufre en aire SO2), qué zonas presentan mayores retos y en qué medida las políticas actuales de protección están logrando sus objetivos.
+            <br><br>Los datos nos muestran no solo información geográfica de las principales zonas de estudio medioambiental y las medidas de contaminación, sino que a su vez nos muestra los niveles límite establecidos por las regulaciones europeas. Es por ello que se estudiará la influencia de esta regulación en la vida de los españoles.
+        </p>
+    </section>
+
+
+
     <section class="contenedor-grafica">
         <h3>Distribución de los Objetivos de Protección</h3>
         <p>Este gráfico muestra el peso relativo de los objetivos de protección ambiental establecidos. Identificar si la mayor parte de las zonas de monitorización están enfocadas a la salud humana o a la protección de los ecosistemas ayuda a entender las prioridades de la red de vigilancia.</p>
         <div id="bar-wrapper">
         <svg id="donut-chart" width="800" height="600"></svg>
         </div>
+    </section>
+
+
+    <section id="intro">
+        <p>Los datos muestran una clara prevalencia de los objetivos centrados en la salud humana frente a los de protección de la vegetación. Esto refleja un enfoque preventivo hacia las enfermedades respiratorias y cardiovasculares derivadas de la contaminación urbana.
+            Si se observa en función de los años, vemos como, además de aumentar el número total de medidas tomadas por la UE, también ha aumentado la proporción de medidas sobre la vegetación este pasado año, aunque, debido a que los datos no han sido revisados, esta información no está completa a día de hoy. </p>
     </section>
 
     <section class="contenedor-grafica">
@@ -38,12 +59,21 @@
         <svg id="bar-chart" width="800" height="600"></svg>
         </div>
     </section>
+    <section>
+        <p>Estas gráficas de barras apiladas demuestran una brecha significativa en el cumplimiento de la normativa europea,
+             ya que se están excediendo los umbrales impuestos por la EEA en aproximadamente un tercio de las regulaciones sobre la salud y más de la mitad sobre el medio ambiente cada año, sin ningún indicio de mejora por el paso de los años, sino que además parece empeorar.</p>
+    </section>
 
 
 
     <section>   
 
-        <div class="control-panel">
+
+        
+        <h2>Cumplimiento Normativo UE</h2>
+        <p>Representación geográfica de las zonas monitorizadas en España. Las áreas marcadas en verde representan zonas dentro de los límites legales, mientras que las áreas en rojo indican puntos críticos donde se ha detectado una excedencia en los niveles de contaminantes.</p>
+        
+                <div class="control-panel">
             <b>Filtrar por contaminante:</b>
             <div id="botones-contaminante" class="button-group">
                 <button class="btnE active" data-valor="NO2">NO2</button>
@@ -52,16 +82,27 @@
                 <button class="btnE" data-valor="SO2">SO2</button>
             </div>
         </div>
-        
-        <h2>Cumplimiento Normativo UE</h2>
-        <p>Representación geográfica de las zonas monitorizadas en España. Las áreas marcadas en verde representan zonas dentro de los límites legales, mientras que las áreas en rojo indican puntos críticos donde se ha detectado una excedencia en los niveles de contaminantes.</p>
         <div id="mapa-excedencia"></div>
 
     </section>
 
+    <section>   
+        <p><br> En el mapa y haciendo uso de la interactividad puede observarse como el promedio empeora muy significativamente a lo largo de los años, mal indicativo si se busca mantener un buen estado de la calidad del aire.
+        En concreto, puede verse como tanto el Ozono como las partículas de aerosol (PM10) exceden casi en la totalidad del país a partir del año 2022, tras la libertad recuperada después de la pandemia ocasionada por el virus Covid-19</p>
+    </section>
+
         <section>
+            <p> <br>Ahora bien, para el estudio del cumplimiento normativo, se ha tratado de ir más allá de esta dupla "cumple" o "excede": se ha creado una variable que llamaremos "I", Índice de Valor Medioambiental, que nos dirá como de proporcional es el incumplimiento de la normativa europea.
+                 Para evitar sesgo poblacional, se ha escalado el índice con el logaritmo en base 10 de la población, y su definición puede observarse a continuación:  <br><br></p>
+
+            <div style="text-align: center; font-size: 1.2em;">
+                $ I = \frac{\text{Nivel contaminante medido}}{\text{Límite legal europeo}} \cdot \log_{10}(\text{Población}) $
+            </div>
+            <p><br>Gracias a este valor, seremos capaces de comprobar si se esta haciendo un daño realmente excesivo a la salud de toda la nación, así como a su medio ambiente, o si los límites son excedidos de forma ligera<br></p>
+        <section>
+
             <h2> Tendencias históricas de la contaminación y el índice obtenido</h2>
-            <p>Análisis temporal del comportamiento de los contaminantes. Mientras que el primer gráfico ofrece una visión global del índice de calidad, el segundo permite comparar la evolución relativa (normalizada) de cada contaminante, facilitando la identificación de tendencias de mejora o empeoramiento en la calidad del aire a lo largo de los años.</p>
+            <p>Análisis temporal del comportamiento de los contaminantes. Mientras que el primer gráfico ofrece una visión global del índice de calidad, el segundo permite comparar la evolución relativa (normalizada respecto al año 2020) de cada contaminante, facilitando la identificación de tendencias de mejora o empeoramiento en la calidad del aire a lo largo de los años.</p>
         </section>
     <section class="contenedor-evolucion-doble">
 
@@ -76,7 +117,9 @@
         </div>
     </section>
 
-
+    <section>   
+        <p><br> Por un lado, aunque se aprecia una ligera subida del promedio de esta variable I calculada, no es evidente, puesto que tiene subidas y bajadas a lo largo de los años. Sin embargo, si que es preocupante ver que esta gráfica es ascendente desde 2023. <br>Por otro lado, podemos apreciar como los elementos contaminantes se han mantenido relativamente estables, salvo el S02 este último año, probablemente debido a un aumento en el número de mediciones. Esto puede indicarnos que, aunque la contaminación sea estable, las medidas a aplicar se han vuelto más estrictas, para hacer frente a crisis medioambientales y de salud. <br> Esto es un indicativo de que, si las políticas no se hubieran vuelto más estrictas, el crecimiento de la actividad desde 2020 habría disparado estos niveles mucho más allá de lo que muestran las líneas. </p>
+    </section>
     <section>
 
     
@@ -108,10 +151,34 @@
                 <div id="grafico-barras"></div>
             </div>
         </div>
+        <section>   
+            <p><br> Mediante este mapa y gráfica interactivos pueden observarse aquellas zonas más y menos afectadas a lo largo de los años y en función del contaminante, comprobando como, debido al endurecimiento de las leyes, se sobrepasa en medidas preocupantes los límites europeos impuestos <br> 
+            De igual forma, se pueden ver aquellos focos mas afectados por el problema evidente del tráfico, emisor principal de NO2, centrados en Madrid, Costa del Sol y Barcelona. También se aprecia como el problema de los gases aerosoles (PM10) va en aumento desde la época Covid.</p>
+        </section>
+
+
+                <section id="conclusiones-finales" class="cierre-estudio">
+    <h2>Conclusión Final</h2>
+    
+    <p>El análisis conjunto de los datos permite extraer una lección fundamental: <strong>la calidad del aire  es un problema nacional formado por una suma de realidades locales que requieren soluciones diferenciadas. Por ello, hay que tratar de seguir la normativa, con intenciones de mejorar las condiciones de aquellos habitantes del país.</strong></p>
+
+    <ul>
+        <p>Mientras que las tendencias nacionales de los contaminantes muestran una estabilización gracias al endurecimiento de las políticas ambientales, el mapa y el ranking de zonas revelan que el progreso no está llegando a todos los puntos por igual.</p>
+        
+        <p>Zonas como el 'Corredor del Henares' o 'Prepirineu' encabezan sistemáticamente el ranking de los índices más elevados. Esto demuestra que, aunque el marco normativo nacional es necesario, su eficacia está limitada si no se acompaña de planes de acción específicos para los focos críticos identificados en nuestra herramienta de filtrado.</p>
+        
+        <p>La brecha persistente entre las zonas que cumplen los objetivos y las que los exceden —especialmente en el ámbito de la salud humana— subraya que no podemos conformarnos con mantener niveles estables. El objetivo debe ser la reducción proactiva, pasando de un modelo de "monitorización de cumplimiento" a uno de "gestión predictiva".</p>
+    </ul>
+
+    <p>En última instancia, este estudio confirma que las políticas actuales han logrado frenar el crecimiento desenfrenado de la contaminación, pero el mapa interactivo es la prueba viviente de que el camino hacia un aire verdaderamente limpio pasa por poner el foco administrativo y ambiental donde los datos dicen que es más necesario, aquellos focos donde mayor es el índice calculado</p>
+</section>
 
     </div>
+
     </section>
-            
+
+
+
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="script_excedencia.js"></script>
     <script src="script.js"></script>
@@ -128,7 +195,20 @@
                 </a>
             </p>
         </footer>
-    </div> </body>
+
+
+
+    </div> 
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ]
+        });
+    });
+</script>
 </body>
 
 
