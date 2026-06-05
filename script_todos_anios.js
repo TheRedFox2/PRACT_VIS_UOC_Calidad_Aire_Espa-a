@@ -68,18 +68,15 @@ const estado = {
 
  // === NUEVA LÓGICA DE BOTONES ===
 d3.selectAll(".btnC").on("click.contaminantes", function() {
-    // 1. UI: Manejo de clase active
     d3.selectAll(".btnC").classed("active", false);
     d3.select(this).classed("active", true);
     
-    // 2. Ejecutar la actualización específica de este mapa
     estado.contaminante = d3.select(this).attr("data-valor");
     renderizarTodo();
 });
 
 d3.selectAll(".btnE").on("click.excedencia", function() {
     const datosParaEsteAnio = datosPorAnio[estado.anio];
-    // 1. UI: Manejo de clase active (esto lo hacen ambos, no pasa nada)
     d3.selectAll(".btnE").classed("active", false);
     d3.select(this).classed("active", true);
     
@@ -88,18 +85,15 @@ d3.selectAll(".btnE").on("click.excedencia", function() {
 });
 
 d3.selectAll(".button").on("click.contaminantes", function() {
-    // 1. UI: Manejo de clase active
     d3.selectAll(".btnC").classed("active", false);
     d3.select(this).classed("active", true);
     
-    // 2. Ejecutar la actualización específica de este mapa
     estado.criterio = d3.select(this).attr("data-valor");
     renderizarTodo();
 });
 
 // Función maestra de refresco
 function renderizarTodo() {
-    // 1. Obtener los datos del año seleccionado
     let datosParaEsteAnio = datosPorAnio[estado.anio];
 
     console.log("Año actual en estado:", estado.anio);
@@ -117,7 +111,6 @@ function renderizarTodo() {
     } else {
         console.log("No estamos en 2024, no se filtra nada.");
     }
-    // 2. Actualizar el Mapa y el grafico
     actualizarMapa(estado.contaminante, datosParaEsteAnio, geojsonGlobal, estado.criterio);
 
     // Actualizar mapa excedencia
@@ -168,10 +161,8 @@ async function prepararDatosEvolucion() {
     for (const anio of archivos) {
         const data = await d3.csv(`./output/datos_uso_calidad_aire_${anio}.csv`);
         
-        // Calculamos promedios por archivo
         const promedioI = d3.mean(data, d => parseFloat(d.I));
         
-        // Agrupamos por contaminante para tener múltiples líneas
         const porContaminante = d3.rollup(data, 
             v => d3.mean(v, d => parseFloat(d["Air Pollution Level"])), 
             d => d["Air Pollutant"]
@@ -190,7 +181,7 @@ async function prepararDatosEvolucion() {
 
     let dataArray = Array.from(datosContaminantes, ([year, valores]) => ({
         year: year,
-        valores: Object.fromEntries(valores) // Convertimos el rollup interno a un objeto simple
+        valores: Object.fromEntries(valores)
     }));
 
     // Normalizar datos
@@ -221,13 +212,12 @@ function dibujarEvolucionI(data) {
         .domain(data.map(d => d.anio))
         .range([margin.left, width - margin.right]);
 
-    // Usamos .nice() para que el eje sea más limpio
     const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.promedioI) * 1.2])
         .nice()
         .range([height - margin.bottom, margin.top]);
 
-    // 1. DIBUJAR GRID
+    // DIBUJAR GRID
     svg.append("g")
         .attr("class", "grid")
         .attr("transform", `translate(${margin.left},0)`)
@@ -272,7 +262,7 @@ function dibujarEvolucionI(data) {
         .style("font-size", "18px")
         .style("font-weight", "bold");
 
-    // 3. LEYENDA
+    //  LEYENDA
     const legend = svg.append("g")
         .attr("transform", `translate(${width - 150}, ${margin.top - 20})`);
 
@@ -292,11 +282,9 @@ function dibujarEvolucionI(data) {
 // Agrupamos los datos por año y por contaminante
 
 
-
-
 function dibujarLineasContaminantes(data) {
     const svg = d3.select("#line-chart-contaminantes"); 
-    svg.selectAll("*").remove(); // Limpiar antes de dibujar
+    svg.selectAll("*").remove(); 
 
     const width = 800, height = 600;
     const margin = { top: 40, right: 100, bottom: 50, left: 60 };
@@ -315,7 +303,7 @@ function dibujarLineasContaminantes(data) {
     const color = d3.scaleOrdinal(d3.schemeCategory10);
     const listaContaminantes = ["NO2", "O3", "PM10", "SO2"];
 
-    // 1. DIBUJAR GRID
+    // DIBUJAR GRID
     svg.append("g")
         .attr("class", "grid")
         .attr("transform", `translate(${margin.left},0)`)
@@ -335,7 +323,7 @@ function dibujarLineasContaminantes(data) {
     listaContaminantes.forEach(c => {
         const linea = d3.line()
             .x(d => x(d.year))
-            .y(d => y(d.valores[c] || 0)); // Si falta un valor, usa 0
+            .y(d => y(d.valores[c] || 0)); 
 
         svg.append("path")
             .datum(data)
@@ -352,10 +340,9 @@ function dibujarLineasContaminantes(data) {
 
 
 
-// 2. LEYENDA INTEGRADA DINÁMICA
+// LEYENDA INTEGRADA DINÁMICA
     const leyenda = svg.append("g").attr("transform", `translate(${width - 240}, ${margin.top})`);
 
-    // Calcular el gran total para los porcentajes
     const granTotal = d3.sum(data, d => d3.sum(Object.values(d.valores)));
 
     listaContaminantes.forEach((c, i) => {

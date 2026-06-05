@@ -1,8 +1,5 @@
 // graficas_objetivos.js
 
-
-
-
 function traducir(label) {
 const traducciones = {
         "Health": "Salud",
@@ -39,7 +36,6 @@ function dibujarDonut(datosAgrupadosG) {
 
     const total = d3.sum(data, d => d.value);
 
-    // 3. Configuración geométrica
     const width = 800; 
     const height = 600;
     const radius = Math.min(width, height) / 2;
@@ -73,10 +69,9 @@ function dibujarDonut(datosAgrupadosG) {
     const leyenda = svgG.append("g")
     .attr("transform", "translate(500, 200)");
 
-    // 2. Crear las filas de la leyenda usando los datos
     data.forEach((d, i) => {
         const row = leyenda.append("g")
-            .attr("transform", `translate(0, ${i * 45})`); // Espaciado vertical de 45px
+            .attr("transform", `translate(0, ${i * 45})`); 
 
         const cumplen = Number(d.cumplen) || 0;
         const exceden = Number(d.exceden) || 0;
@@ -102,11 +97,11 @@ function dibujarDonut(datosAgrupadosG) {
             .style("alignment-baseline", "middle");
 
         row.append("text")
-            .attr("x", 120) // Ajusta esta coordenada según necesites
+            .attr("x", 120) 
             .attr("y", 18)
             .text(`Total: ${totalElemento} | ${porcentaje}%`)
             .style("font-size", "18px")
-            .style("fill", "#555") // Un color un poco más suave
+            .style("fill", "#555") 
             .style("alignment-baseline", "middle");
     });
 
@@ -128,13 +123,13 @@ function dibujarBarrasApiladas(data) {
     const width = 1000, height = 700;
     const margin = { top: 40, right: 100, bottom: 80, left: 60 };
 
-    // Escala X: Para los grupos (nombres de etiquetas)
+    // Escala X
     const x = d3.scaleBand()
         .domain(data.map(d => d.label))
         .range([margin.left, width - margin.right])
         .padding(0.6);
 
-    // Escala Y: Para los valores acumulados
+    // Escala Y
     const y = d3.scaleLinear()
         .domain([0, 5500])
         .nice()
@@ -147,13 +142,13 @@ function dibujarBarrasApiladas(data) {
 
     // Eje Y
     svgG.append("g")
-        .attr("class", "grid") // Clase para identificar el grid
+        .attr("class", "grid") 
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(y)
             .tickSize(-(width - margin.left - margin.right))
         )
-        .style("stroke-dasharray", "3,3") // Hace la línea discontinua (opcional)
-        .style("stroke", "#ddd"); // Color gris claro
+        .style("stroke-dasharray", "3,3") 
+        .style("stroke", "#ddd"); 
         const stack = d3.stack().keys(["cumplen", "exceden"]);
         const series = stack(data);
 
@@ -173,12 +168,10 @@ function dibujarBarrasApiladas(data) {
         .style("opacity", 1)
         .on("mouseover", function(event, d) {
             
-            // Calculamos el valor de esta sección y el total de la barra
             const valorActual = d[1] - d[0];
-            const totalColumna = d.data.cumplen + d.data.exceden; // Total de la categoría
+            const totalColumna = d.data.cumplen + d.data.exceden; 
             const porcentaje = ((valorActual / totalColumna) * 100).toFixed(1);
             
-            // Obtenemos qué categoría es (cumplen o exceden)
             const categoria = d3.select(this.parentNode).datum().key;
             
             d3.select("#tooltip")

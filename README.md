@@ -39,4 +39,4 @@ La organización del repositorio se divide en directorios de código fuente, ges
 Se aplica la licencia Creative Commons Legal Code CC0 1.0 Universal
 
 ### Nota extra
-*" Los directorios 'D3 - copia' y otros elementos temporales como 'D3' o diferentes scripts de python son parte del entorno de desarrollo y no afectan a la funcionalidad del despliegue en producción"*.
+*" Los directorios 'D3 - copia' y otros elementos temporales como 'D3' o diferentes scripts de python son parte del entorno de desarrollo y no afectan a la funcionalidad del despliegue en producción. Por otro lado, se utilizó Gemini para plantear prototipos de las funciones creadas en D3.js "*.

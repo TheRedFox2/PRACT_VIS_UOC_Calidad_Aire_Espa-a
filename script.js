@@ -7,7 +7,6 @@ const svg = d3.select("#mapa")
   .attr("height", height);
 
 
-// Poner color de fondo fijo al inicio
 svg.append("rect")
   .attr("width", width)
   .attr("height", height)
@@ -17,7 +16,7 @@ const grupoMapa = svg.append("g").attr("class", "grupo-mapa");
 const tooltip = d3.select("#tooltip");
 
 
-  // Escala de color base (Invertida: Verde limpio, Rojo contaminado)
+  // Escala de color base 
   const color = d3.scaleLinear();
 
   // === CONFIGURACIÓN ESTÁTICA DE LA LEYENDA ===
@@ -39,7 +38,6 @@ const tooltip = d3.select("#tooltip");
   const tituloLeyenda = leyendaG.append("text").attr("y", -8).attr("x", 90).style("text-anchor", "middle").style("font-weight", "bold").style("font-family", "sans-serif").style("font-size", "12px");
 
 
-  // 🌟 FUNCIÓN MAESTRA: Se ejecuta cada vez que cambia el contaminante
   function actualizarMapa(contaminanteSeleccionado, datosParaEsteAnio, geojsonGlobal, criterio = "peores") {
     
 // A. Filtrar o agrupar los datos
@@ -61,7 +59,6 @@ const tooltip = d3.select("#tooltip");
         d["AQ Zone Id"] ? d["AQ Zone Id"].trim().toUpperCase() : "", 
         {
           valor: +d.I,
-          // 🌟 Aquí está la clave: usamos 'Geographical Name' que definimos arriba
           nombre: d["Geographical Name"] ? d["Geographical Name"].trim() : "Nombre no disponible"
         }
       ])
@@ -89,7 +86,7 @@ const tooltip = d3.select("#tooltip");
     const maxI = d3.max(valoresI) || 10;
 
     color.domain([maxI,  minI + 1.0, minI])
-    .range(["#de2d26", "#fec44f",  "#2ca25f",]);; // Mantenemos tu inversión para que verde sea el menor valor
+    .range(["#de2d26", "#fec44f",  "#2ca25f",]);; 
 
     // F. Actualizar los números y textos de la leyenda
     tituloLeyenda.text(`Índice I (${contaminanteSeleccionado})`);
@@ -99,27 +96,23 @@ const tooltip = d3.select("#tooltip");
 
     // Solo dibujamos el indicador si el 1 está dentro del rango actual de datos
     if (minI <= 1.0 && maxI >= 1.0) {
-      // Calculamos la posición X (entre 0 y 180 píxeles) usando interpolación lineal
       const porcentajeUno = (1.0 - minI) / (maxI - minI);
       const posicionXUno = porcentajeUno * 180;
 
-      // Creamos un grupo contenedor para la línea y el texto del "1"
       const marcaUnoG = leyendaG.append("g")
         .attr("class", "marca-uno")
         .attr("transform", `translate(${posicionXUno}, 0)`);
 
-      // Línea vertical que corta la barra de la leyenda
       marcaUnoG.append("line")
         .attr("y1", 0)
-        .attr("y2", 15) // Altura de la barra
+        .attr("y2", 15) 
         .attr("stroke", "#000")
         .attr("stroke-width", 1.5)
-        .attr("stroke-dasharray", "2,2"); // Línea discontinua elegante
-
+        .attr("stroke-dasharray", "2,2"); 
       // Texto "1.0" abajo de la línea
       marcaUnoG.append("text")
-        .attr("x", 8) // Alineado con el Min y Max
-        .attr("y", 15) // Alineado con el Min y Max
+        .attr("x", 8)
+        .attr("y", 15) 
         .attr("text-anchor", "middle")
         .style("font-weight", "bold")
         .style("font-family", "sans-serif")
@@ -127,7 +120,6 @@ const tooltip = d3.select("#tooltip");
         .text("1.0");
     }
 
-    // Refrescar el degradado cromático de la barra de la leyenda
     const numParadas = 10;
     const arrayParadas = d3.range(numParadas).map(i => i / (numParadas - 1));
     linearGradient.selectAll("stop").remove();
@@ -151,7 +143,7 @@ const tooltip = d3.select("#tooltip");
           .attr("fill", d => {
             const zoneId = d.properties.ZoneId ? d.properties.ZoneId.trim().toUpperCase() : "";
             const dataZona = valoresPorZona.get(zoneId);
-            return dataZona ? color(dataZona.valor) : "#ccc"; // Gris si no tiene datos
+            return dataZona ? color(dataZona.valor) : "#ccc"; 
           })),
       update => update
         .call(update => update.transition().duration(400)
@@ -170,7 +162,6 @@ const tooltip = d3.select("#tooltip");
         const zoneId = d.properties.ZoneId ? d.properties.ZoneId.trim() : "Sin ID";
         const dataZona = valoresPorZona.get(zoneId.toUpperCase());
         
-        // Si no está en el CSV, mostramos el nombre genérico del GeoJSON si existe
         const nombreGeografico = dataZona ? dataZona.nombre : (d.properties.Name || "Zona sin datos asignados");
         const valorI = dataZona ? dataZona.valor : undefined;
         const textoValor = valorI !== undefined && !isNaN(valorI) ? valorI.toFixed(2) : "Sin datos";
@@ -221,7 +212,6 @@ const tooltip = d3.select("#tooltip");
     .scaleExtent([1, 8]) // Límite de ampliación
     .translateExtent([[0, 0], [width, height]])
     .on("zoom", function(event) {
-      // Aplica la matriz de transformación solo al grupo interno de los polígonos
       grupoMapa.attr("transform", event.transform);
 
     });
@@ -235,7 +225,6 @@ const svgGrafico = d3.select("#grafico-barras")
 
 function actualizarGrafico(datosParaEsteAnio, criterio = "peores") {
     svgGrafico.selectAll("*").remove();
- // Lógica de ordenación dinámica
     let top;
     if (criterio === 'peores') {
         top = datosParaEsteAnio.sort((a, b) => b.I - a.I).slice(0, 50);
@@ -256,11 +245,9 @@ function actualizarGrafico(datosParaEsteAnio, criterio = "peores") {
     g.append("g").call(d3.axisLeft(y));
     g.append("g").attr("transform", `translate(0, ${height})`).call(d3.axisBottom(x));
 
-// 1. Seleccionamos y hacemos el join
 const barras = g.selectAll(".barra")
     .data(top, d => d["AQ Zone Id"]);
 
-// 2. Definimos la selección "enter" y "update" combinada
 const nuevasBarras = barras.join(
     enter => enter.append("rect")
         .attr("class", "barra")
@@ -272,7 +259,6 @@ const nuevasBarras = barras.join(
         .attr("pointer-events", "all") 
 );
 
-// 3. Definimos los eventos sobre la selección antes de la transición
 nuevasBarras
     .on("mouseover", function(event, d) {
         tooltip.style("display", "block")
@@ -292,7 +278,6 @@ nuevasBarras
         d3.selectAll(".zona-poligono").attr("stroke", "#333").attr("stroke-width", 0.3);
     });
 
-// 4. Aplicamos la transición (esto no afectará a los eventos ya ligados)
 nuevasBarras.transition()
     .duration(400)
     .attr("y", d => y(d["Geographical Name"]))

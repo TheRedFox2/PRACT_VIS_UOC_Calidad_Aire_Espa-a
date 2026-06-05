@@ -1,14 +1,13 @@
 // script_excedencia.js
 
 const widthE = 900;
-const heightE = 600; // Ajustado a la altura real del SVG
+const heightE = 600; 
 
-const svgE = d3.select("#mapa-excedencia") // Asegúrate de tener este ID en el HTML
+const svgE = d3.select("#mapa-excedencia") 
   .append("svg")
   .attr("width", widthE)
   .attr("height", heightE);
 
-// Fondo del mapa
 svgE.append("rect")
   .attr("width", widthE)
   .attr("height", heightE)
@@ -17,12 +16,10 @@ svgE.append("rect")
 const grupoMapaE = svgE.append("g").attr("class", "grupo-mapa-excedencia");
 const tooltipE = d3.select("#tooltip");
 
-// Escala categórica
 const colorExcedenciaE = d3.scaleOrdinal()
   .domain(["No", "Yes"]) 
   .range(["#2ca25f", "#de2d26"]); 
 
-// Leyenda Estática
 const leyendaGE = svgE.append("g")
   .attr("class", "leyenda-excedencia")
   .attr("transform", `translate(${widthE - 200}, 30)`);
@@ -47,14 +44,14 @@ itemsE.forEach((item, i) => {
     }
 const datosFiltrados = datosParaEsteAnio.filter(d => d["Air Pollutant"] === contaminante);
 
-// B. Creamos el mapa de datos (Map) usando la lógica de umbral (I > 1)
+// B. Creamos el mapa de datos 
 const valoresPorZonaE = new Map(
   datosFiltrados.map(d => {
-    // 1. Convertimos el valor de la columna que contiene tu índice a número
+
     
     const valorI = parseFloat(d["I"]); 
     
-    // 2. Definimos 'excede' como un booleano (true si > 1, false si <= 1)
+
     return [
       d["AQ Zone Id"].trim().toUpperCase(),
       {
@@ -99,7 +96,7 @@ paths
 // 3. Aplicamos la transición para los cambios visuales (color y forma)
 paths.transition()
     .duration(400)
-    .attr("d", pathE) // Esto anima el cambio de forma si la proyección cambia
+    .attr("d", pathE) 
     .attr("stroke", "#333")
     .attr("stroke-width", 0.3)
     .attr("fill", d => {
@@ -115,7 +112,7 @@ paths.transition()
     .scaleExtent([1, 8]) // Límite de ampliación
     .translateExtent([[0, 0], [widthE, heightE]])
     .on("zoom", function(event) {
-      // Aplica la matriz de transformación solo al grupo interno de los polígonos
+      
       grupoMapaE.attr("transform", event.transform);
 
     });
