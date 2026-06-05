@@ -112,6 +112,9 @@ h1 {
     margin-left: 60px;
     align-items: center;
 }
+#mapa svg {
+    background-color: transparent; 
+}
 
 
 #mapa-excedencia {
